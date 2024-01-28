@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "application",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "application::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-application-Debug-c9cef43453ab3f1258f0.json",
+					"name" : "application",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "application_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-application_autogen-Debug-7190dc7a9b3074da1e53.json",
+					"name" : "application_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "application_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-application_autogen_timestamp_deps-Debug-a4761e54d2b030c35698.json",
+					"name" : "application_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Steven Tu/Documents/vs_code_workspace/wifi-controlled-robot/build",
+		"source" : "C:/Users/Steven Tu/Documents/vs_code_workspace/wifi-controlled-robot"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
