@@ -1,5 +1,0 @@
-C:/Users/Steven Tu/Documents/vs_code_workspace/wifi-controlled-robot/build/CMakeFiles/application.dir
-C:/Users/Steven Tu/Documents/vs_code_workspace/wifi-controlled-robot/build/CMakeFiles/edit_cache.dir
-C:/Users/Steven Tu/Documents/vs_code_workspace/wifi-controlled-robot/build/CMakeFiles/rebuild_cache.dir
-C:/Users/Steven Tu/Documents/vs_code_workspace/wifi-controlled-robot/build/CMakeFiles/application_autogen_timestamp_deps.dir
-C:/Users/Steven Tu/Documents/vs_code_workspace/wifi-controlled-robot/build/CMakeFiles/application_autogen.dir
