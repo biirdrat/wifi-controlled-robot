@@ -69,7 +69,7 @@
 		  {
 			"label": "CMake Make and Run",
 			"type": "shell",
-			"command": "build\\application",
+			"command": "./build/application",
 			"group": {
 			  "kind": "build",
 			  "isDefault": true
