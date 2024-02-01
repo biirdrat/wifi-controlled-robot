@@ -45,7 +45,7 @@
 			  "-B",
 			  "build",
 			  "-G",
-			  "MinGW Makefiles"
+			  "Visual Studio 17 2022"
 			],
 			"group": {
 			  "kind": "build",
@@ -55,10 +55,12 @@
 		  {
 			"label": "CMake Make",
 			"type": "shell",
-			"command": "mingw32-make",
+			"command": "cmake",
 			"args": [
-			  "-C",
+			  "--build",
 			  "build",
+			  "--config",
+			  "Release",
 			],
 			"group": {
 			  "kind": "build",
@@ -69,7 +71,7 @@
 		  {
 			"label": "CMake Make and Run",
 			"type": "shell",
-			"command": "./build/application",
+			"command": "./build/Release/application",
 			"group": {
 			  "kind": "build",
 			  "isDefault": true

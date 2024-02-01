@@ -15,14 +15,17 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
-set (CMAKE_PREFIX_PATH "C:\\Qt\\5.15.2\\mingw81_64")
+set (CMAKE_PREFIX_PATH "C:\\Qt\\5.15.2\\msvc2019_64")
+
+set(OpenCV_DIR "${CMAKE_CURRENT_SOURCE_DIR}\\opencv\\build")
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+find_package(OpenCV REQUIRED)
 
 include_directories(ui-desktop/include)
 
 add_executable(${PROJECT_NAME}
-    ui-desktop/src/main.cpp
     ui-desktop/src/mainwindow.cpp 
     ui-desktop/src/mainwindow.ui 
     ui-desktop/include/mainwindow.h
@@ -31,4 +34,5 @@ add_executable(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+target_link_libraries(${PROJECT_NAME} Qt5::Widgets ${OpenCV_LIBS})
+

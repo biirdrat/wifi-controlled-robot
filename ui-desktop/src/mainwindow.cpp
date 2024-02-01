@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Setup Control Buttons
+    // Control buttons
     connect(ui->left_control_button, &QPushButton::pressed, this, &MainWindow::left_control_pressed);
     connect(ui->left_control_button, &QPushButton::released, this, &MainWindow::left_control_released);
     connect(ui->right_control_button, &QPushButton::pressed, this, &MainWindow::right_control_pressed);
@@ -33,7 +33,6 @@ void MainWindow::left_control_released()
     ui->left_control_button->setStyleSheet("");
 }
 
-// Define similar slots for right, up, and down control buttons
 void MainWindow::right_control_pressed()
 {
     ui->right_control_button->setStyleSheet("QPushButton { background-color: rgb(164, 255, 103); }");
