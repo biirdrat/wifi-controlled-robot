@@ -26,6 +26,7 @@ find_package(OpenCV REQUIRED)
 include_directories(ui-desktop/include)
 
 add_executable(${PROJECT_NAME}
+    ui-desktop/src/main.cpp
     ui-desktop/src/mainwindow.cpp 
     ui-desktop/src/mainwindow.ui 
     ui-desktop/include/mainwindow.h
