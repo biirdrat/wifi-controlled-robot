@@ -15,7 +15,7 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
-set (CMAKE_PREFIX_PATH "C:\\Qt\\5.15.2\\msvc2019_64")
+set(Qt5_DIR "C:\\Qt\\5.15.2\\msvc2019_64\\lib\\cmake\\Qt5")
 
 set(OpenCV_DIR "${CMAKE_CURRENT_SOURCE_DIR}\\opencv\\build")
 
