@@ -5,6 +5,8 @@
 #include <QColor>
 #include <QPalette>
 #include <iostream>
+#include "mqtt/async_client.h"
+#include <MQTTAsync.h>
 using std::cout;
 
 QT_BEGIN_NAMESPACE
