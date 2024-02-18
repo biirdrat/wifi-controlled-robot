@@ -23,12 +23,14 @@ public:
 class publish_action_listener : public virtual mqtt::iaction_listener
 {
 protected:
-	void on_failure(const mqtt::token& tok) override {
+	void on_failure(const mqtt::token& tok) override 
+    {
 		cout << "\tListener failure for token: "
 			<< tok.get_message_id() << endl;
 	}
 
-	void on_success(const mqtt::token& tok) override {
+	void on_success(const mqtt::token& tok) override 
+    {
 		cout << "\tListener success for token: "
 			<< tok.get_message_id() << endl;
 	}

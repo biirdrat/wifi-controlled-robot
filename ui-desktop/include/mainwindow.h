@@ -1,10 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
 #include <QMainWindow>
 #include <QColor>
 #include <QPalette>
+#include <QKeyEvent>
 #include <mqtt.h>
 
 QT_BEGIN_NAMESPACE
@@ -38,14 +38,25 @@ public:
     void down_control_pressed();
     void down_control_released();
 
+    // Slot for Connect Button
+    void connect_pressed();
+
     // MQTT Methods
     void publish_msg(const string msg);
 
+protected:
+    void keyPressEvent(QKeyEvent *event) override; 
+    void keyReleaseEvent(QKeyEvent *event) override;
+
 private:
     Ui::MainWindow *ui;
-    mqtt::async_client control_client;
+    // mqtt::async_client control_client;
+    mqtt::async_client *control_client_ptr;
+    mqtt::connect_options conn_opts;
+    bool connected = false;
     callback cb;
     publish_action_listener publish_listener;
-    string current_motion = "none";
+    string current_action = "none";
+
 };
 #endif // MAINWINDOW_H
