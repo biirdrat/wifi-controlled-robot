@@ -60,7 +60,7 @@
 			  "--build",
 			  "build",
 			  "--config",
-			  "Release",
+			  "Debug",
 			],
 			"group": {
 			  "kind": "build",
@@ -71,7 +71,7 @@
 		  {
 			"label": "CMake Make and Run",
 			"type": "shell",
-			"command": "./build/Release/application",
+			"command": "./build/Debug/application",
 			"group": {
 			  "kind": "build",
 			  "isDefault": true

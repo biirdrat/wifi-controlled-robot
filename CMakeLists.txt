@@ -19,9 +19,9 @@ set(Qt5_DIR "C:\\Qt\\5.15.2\\msvc2019_64\\lib\\cmake\\Qt5")
 
 set(OpenCV_DIR "${CMAKE_CURRENT_SOURCE_DIR}\\opencv\\build")
 
-set(eclipse-paho-mqtt-c_DIR "C:\\mqtt\\paho-c\\lib\\cmake\\eclipse-paho-mqtt-c")
+set(eclipse-paho-mqtt-c_DIR "C:\\paho-mqtt\\paho-c\\lib\\cmake\\eclipse-paho-mqtt-c")
 
-set(PahoMqttCpp_DIR "C:\\mqtt\\paho-cpp\\lib\\cmake\\PahoMqttCpp")
+set(PahoMqttCpp_DIR "C:\\paho-mqtt\\paho-cpp\\lib\\cmake\\PahoMqttCpp")
 
 find_package(Threads REQUIRED)
 
@@ -49,9 +49,8 @@ target_link_libraries(${PROJECT_NAME}
         PUBLIC
         Qt5::Widgets 
         ${OpenCV_LIBS} 
-        eclipse-paho-mqtt-c::paho-mqtt3a 
-        Threads::Threads
-        PahoMqttCpp::paho-mqttpp3
+        PahoMqttCpp::paho-mqttpp3-static
+        eclipse-paho-mqtt-c::paho-mqtt3a-static
 )
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC PAHO_MQTTPP_IMPORTS)

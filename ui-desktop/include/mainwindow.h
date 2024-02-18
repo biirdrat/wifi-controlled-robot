@@ -1,13 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+
 #include <QMainWindow>
 #include <QColor>
 #include <QPalette>
-#include <iostream>
-#include "mqtt/async_client.h"
-#include <MQTTAsync.h>
-using std::cout;
+#include <mqtt.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -40,7 +38,14 @@ public:
     void down_control_pressed();
     void down_control_released();
 
+    // MQTT Methods
+    void publish_msg(const string msg);
+
 private:
     Ui::MainWindow *ui;
+    mqtt::async_client control_client;
+    callback cb;
+    publish_action_listener publish_listener;
+    string current_motion = "none";
 };
 #endif // MAINWINDOW_H
