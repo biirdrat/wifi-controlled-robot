@@ -31,7 +31,7 @@ protected:
 
 	void on_success(const mqtt::token& tok) override 
     {
-		cout << "\tListener success for token: "
-			<< tok.get_message_id() << endl;
+		// cout << "\tListener success for token: "
+		// 	<< tok.get_message_id() << endl;
 	}
 };
