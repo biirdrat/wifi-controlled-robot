@@ -15,9 +15,23 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
-set (CMAKE_PREFIX_PATH "C:\\Qt\\5.15.2\\mingw81_64")
+set(Qt5_DIR "C:\\Qt\\5.15.2\\msvc2019_64\\lib\\cmake\\Qt5")
+
+set(OpenCV_DIR "${CMAKE_CURRENT_SOURCE_DIR}\\opencv\\build")
+
+set(eclipse-paho-mqtt-c_DIR "C:\\paho-mqtt\\paho-c\\lib\\cmake\\eclipse-paho-mqtt-c")
+
+set(PahoMqttCpp_DIR "C:\\paho-mqtt\\paho-cpp\\lib\\cmake\\PahoMqttCpp")
+
+find_package(Threads REQUIRED)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+find_package(OpenCV REQUIRED)
+
+find_package(eclipse-paho-mqtt-c REQUIRED)
+
+find_package(PahoMqttCpp REQUIRED)
 
 include_directories(ui-desktop/include)
 
@@ -31,4 +45,12 @@ add_executable(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+target_link_libraries(${PROJECT_NAME} 
+        PUBLIC
+        Qt5::Widgets 
+        ${OpenCV_LIBS} 
+        PahoMqttCpp::paho-mqttpp3-static
+        eclipse-paho-mqtt-c::paho-mqtt3a-static
+)
+
+target_compile_definitions(${PROJECT_NAME} PUBLIC PAHO_MQTTPP_IMPORTS)

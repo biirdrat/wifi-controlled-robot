@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <iostream>
+#include <opencv2/opencv.hpp>
 
 using std::cout;
 
