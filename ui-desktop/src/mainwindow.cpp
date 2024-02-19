@@ -46,7 +46,7 @@ void MainWindow::left_control_pressed()
     {
         ui->left_control_button->setStyleSheet("QPushButton { background-color: rgb(164, 255, 103); }");
         current_action = "left_button";
-        publish_msg("left");
+        publish_msg("l");
     }
 }
 
@@ -56,7 +56,7 @@ void MainWindow::left_control_released()
     {
         ui->left_control_button->setStyleSheet("");
         current_action = "none";
-        publish_msg("stop");
+        publish_msg("s");
     }
 }
 
@@ -66,7 +66,7 @@ void MainWindow::right_control_pressed()
     {
         ui->right_control_button->setStyleSheet("QPushButton { background-color: rgb(164, 255, 103); }");
         current_action = "right_button";
-        publish_msg("right");
+        publish_msg("r");
     }
 }
 
@@ -76,7 +76,7 @@ void MainWindow::right_control_released()
     {
         ui->right_control_button->setStyleSheet("");
         current_action = "none";
-        publish_msg("stop");
+        publish_msg("s");
     }
 }
 
@@ -86,7 +86,7 @@ void MainWindow::up_control_pressed()
     {
         ui->up_control_button->setStyleSheet("QPushButton { background-color: rgb(164, 255, 103); }");
         current_action = "up_button";
-        publish_msg("up");
+        publish_msg("u");
     }
 }
 
@@ -96,7 +96,7 @@ void MainWindow::up_control_released()
     {
         ui->up_control_button->setStyleSheet("");
         current_action = "none";
-        publish_msg("stop");
+        publish_msg("s");
     }
 }
 
@@ -106,7 +106,7 @@ void MainWindow::down_control_pressed()
     {
         ui->down_control_button->setStyleSheet("QPushButton { background-color: rgb(164, 255, 103); }");
         current_action = "down_button";
-        publish_msg("down");
+        publish_msg("d");
     }
 }
 
@@ -116,7 +116,7 @@ void MainWindow::down_control_released()
     {
         ui->down_control_button->setStyleSheet("");
         current_action = "none";
-        publish_msg("stop");
+        publish_msg("s");
     }
 }
 
@@ -173,7 +173,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         {
             ui->left_control_button->setStyleSheet("QPushButton { background-color: rgb(164, 255, 103); }");
             current_action = "left_key";
-            publish_msg("left");
+            publish_msg("l");
         }
     } 
     else if (event->key() ==  Qt::Key_D)
@@ -182,7 +182,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         {
             ui->right_control_button->setStyleSheet("QPushButton { background-color: rgb(164, 255, 103); }");
             current_action = "right_key";
-            publish_msg("right");
+            publish_msg("r");
         }
     }
     else if (event->key() ==  Qt::Key_W)
@@ -191,7 +191,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         {
             ui->up_control_button->setStyleSheet("QPushButton { background-color: rgb(164, 255, 103); }");
             current_action = "up_key";
-            publish_msg("up");
+            publish_msg("u");
         }
     }
     else if (event->key() == Qt::Key_S) 
@@ -200,7 +200,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         {
             ui->down_control_button->setStyleSheet("QPushButton { background-color: rgb(164, 255, 103); }");
             current_action = "down_key";
-            publish_msg("down");
+            publish_msg("d");
         }
     }
     else {
@@ -220,7 +220,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         {
             ui->left_control_button->setStyleSheet("");
             current_action = "none";
-            publish_msg("stop");
+            publish_msg("s");
         }
     } 
     else if (event->key() == Qt::Key_D) {
@@ -228,7 +228,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         {
             ui->right_control_button->setStyleSheet("");
             current_action = "none";
-            publish_msg("stop");
+            publish_msg("s");
         }
     }
     else if (event->key() == Qt::Key_W) {
@@ -237,7 +237,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         {
             ui->up_control_button->setStyleSheet("");
             current_action = "none";
-            publish_msg("stop");
+            publish_msg("s");
         }
     }
     else if (event->key() == Qt::Key_S) {
@@ -245,7 +245,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         {
             ui->down_control_button->setStyleSheet("");
             current_action = "none";
-            publish_msg("stop");
+            publish_msg("s");
         }
     }
     else {
