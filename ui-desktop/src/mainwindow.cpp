@@ -128,6 +128,8 @@ void MainWindow::connect_pressed()
     string SERVER_URL = "";
     if(SERVER_ADDRESS.empty() || PORT.empty())
     {
+        ui->broker_url_lineEd->setText("tcp://91.121.93.94");
+        ui->port_number_lineEd->setText("1883");
         SERVER_URL = DEFAULT_SERVER_URL;
     }
     else
