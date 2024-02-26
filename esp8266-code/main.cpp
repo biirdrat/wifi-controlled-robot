@@ -17,6 +17,9 @@ void brake();
 // WiFi credentials
 const char* ssid = "ATTiyMY3i2";
 const char* password = "cc%e=nm8t8gj";
+// const char* ssid = "ATTpgi2ziE";
+// const char* password = "Dung1965";
+
 
 // MQTT Broker settings
 const char* mqtt_broker = "91.121.93.94";
