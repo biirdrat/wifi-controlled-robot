@@ -6,6 +6,7 @@ const int LEFT_FORWARD_PIN = 5;
 const int LEFT_BACKWARD_PIN = 4;
 const int RIGHT_FORWARD_PIN = 14;
 const int RIGHT_BACKWARD_PIN = 12;
+const int HORN_PIN = 13;
 const int CONNECT_LED_PIN = 2;
 
 void go_forward();
@@ -15,12 +16,12 @@ void turn_right();
 void brake();
 
 // WiFi credentials
-// const char* ssid = "ATTiyMY3i2";
-// const char* password = "cc%e=nm8t8gj";
+const char* ssid = "ATTiyMY3i2";
+const char* password = "cc%e=nm8t8gj";
 // const char* ssid = "ATTpgi2ziE";
 // const char* password = "Dung1965";
-const char* ssid = "11411 Langdon Ln";
-const char* password = "11411LDLN";
+// const char* ssid = "11411 Langdon Ln";
+// const char* password = "11411LDLN";
 
 // MQTT Broker settings
 const char* mqtt_broker = "91.121.93.94";
@@ -36,6 +37,9 @@ void setup()
   // Set baud for serial monitor
   Serial.begin(9600);
   initialize_pins();
+  digitalWrite(HORN_PIN, HIGH);
+  delay(1000);
+  digitalWrite(HORN_PIN, LOW);
 
   // Connect to WIFI
   Serial.println("Connecting to WiFi..");
@@ -94,6 +98,7 @@ void initialize_pins()
   pinMode(LEFT_BACKWARD_PIN, OUTPUT);
   pinMode(RIGHT_FORWARD_PIN, OUTPUT);
   pinMode(RIGHT_BACKWARD_PIN, OUTPUT);
+  pinMode(HORN_PIN, OUTPUT);
   digitalWrite(CONNECT_LED_PIN, LOW);
 }
 
