@@ -115,6 +115,9 @@ void subscriber_callback(char* topic, byte* payload, unsigned int length)
     message[i] = (char)payload[i];
   }
 
+  // Null-terminate the array
+  message[length] = '\0';
+
   // Movement commands
   if (length == 1)
   {
@@ -140,9 +143,15 @@ void subscriber_callback(char* topic, byte* payload, unsigned int length)
         break;
     }
   }
-  Serial.print("yes");
-  // Null-terminate the array
-  message[length] = '\0';
+  else if (strncmp(message, "horn_on", length) == 0) 
+  {
+    digitalWrite(HORN_PIN, HIGH);
+  } 
+  else if (strncmp(message, "horn_off", length) == 0) 
+  {
+    digitalWrite(HORN_PIN, LOW);
+  } 
+
   
   // Print the message as a C string
   Serial.println(message);

@@ -4,7 +4,7 @@
 const std::string DEFAULT_SERVER_URL = "tcp://91.121.93.94:1883";
 const std::string CLIENT_ID = "mqtt_cpp_publisher";
 const std::string TOPIC = "robot/control";
-const int QOS = 1;
+const int QOS = 0;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
