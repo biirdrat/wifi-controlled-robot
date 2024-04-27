@@ -42,7 +42,7 @@ QPushButton#horn_pb {
 	background-color: rgb(255, 255, 255); 
 }
 
-QFrame#controls_frame QPushButton { 
+QFrame#movement_pad_frame QPushButton { 
 	background-color: rgb(255, 255, 255); 
 }
 </string>
@@ -62,7 +62,10 @@ QFrame#controls_frame QPushButton {
      <number>0</number>
     </property>
     <property name="bottomMargin">
-     <number>50</number>
+     <number>10</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
     </property>
     <item row="0" column="0">
      <layout class="QGridLayout" name="main_glo">
@@ -76,7 +79,7 @@ QFrame#controls_frame QPushButton {
        <number>25</number>
       </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>30</number>
       </property>
       <property name="spacing">
        <number>0</number>
@@ -942,14 +945,14 @@ QFrame#controls_frame QPushButton {
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>45</width>
+                     <height>45</height>
                     </size>
                    </property>
                    <property name="font">
                     <font>
                      <family>Segoe UI</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>1</pointsize>
                      <kerning>true</kerning>
                     </font>
                    </property>
@@ -996,14 +999,14 @@ QFrame#controls_frame QPushButton {
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
-                     <height>50</height>
+                     <width>45</width>
+                     <height>45</height>
                     </size>
                    </property>
                    <property name="font">
                     <font>
                      <family>Segoe UI</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>1</pointsize>
                      <kerning>true</kerning>
                     </font>
                    </property>

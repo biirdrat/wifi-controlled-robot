@@ -5,6 +5,7 @@
 #include <QColor>
 #include <QPalette>
 #include <QKeyEvent>
+#include <QTimer>
 #include <mqtt.h>
 
 QT_BEGIN_NAMESPACE
@@ -38,6 +39,9 @@ public:
     void down_control_pressed();
     void down_control_released();
 
+    // Slots for horn button
+    void enable_horn_activation();
+
     // Slot for Connect Button
     void connect_pressed();
 
@@ -57,6 +61,8 @@ private:
     callback cb;
     publish_action_listener publish_listener;
     string current_action = "none";
-
+    QTimer* horn_debounce_timer;  
+    bool horn_active = false;     
+    bool horn_debounce = false; 
 };
 #endif // MAINWINDOW_H

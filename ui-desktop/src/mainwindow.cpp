@@ -9,6 +9,7 @@ const int QOS = 1;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , horn_debounce_timer(new QTimer(this))
 {
     ui->setupUi(this);
 
@@ -28,11 +29,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->down_pb, &QPushButton::released, this, &MainWindow::down_control_released);
     connect(ui->connect_pb, &QPushButton::released, this, &MainWindow::connect_pressed);
 
+
+    // Setup horn timer
+    horn_debounce_timer->setSingleShot(true);
+    connect(horn_debounce_timer, &QTimer::timeout, this, &MainWindow::enable_horn_activation);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete horn_debounce_timer;
     if(control_client_ptr != nullptr)
     {
         control_client_ptr->disconnect();
@@ -120,6 +126,12 @@ void MainWindow::down_control_released()
     }
 }
 
+
+void MainWindow::enable_horn_activation()
+{
+    horn_debounce = false;
+}
+
 void MainWindow::connect_pressed()
 {
     string SERVER_ADDRESS = (ui->broker_url_le->text()).toStdString();
@@ -205,6 +217,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             publish_msg("d");
         }
     }
+    else if (event->key() == Qt::Key_H) 
+    {
+        if (!horn_debounce)
+        {
+            publish_msg("horn_on");
+            ui->horn_pb->setStyleSheet("QPushButton { background-color: rgb(0, 205, 255); }");
+            horn_active = true;
+            horn_debounce = true;
+        }
+    }
     else {
         // Call the base class keyPressEvent to ensure default behavior for other keys
         QMainWindow::keyPressEvent(event);
@@ -248,6 +270,16 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
             ui->down_pb->setStyleSheet("");
             current_action = "none";
             publish_msg("s");
+        }
+    }
+    else if (event->key() == Qt::Key_H) 
+    {
+        if (horn_active)
+        {
+            publish_msg("horn_off");
+            ui->horn_pb->setStyleSheet("");
+            horn_active = false;
+            horn_debounce_timer->start(250); 
         }
     }
     else {

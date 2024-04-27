@@ -10,11 +10,11 @@ class callback : public virtual mqtt::callback
 {
 public:
     void connected(const std::string& cause) override {
-        std::cout << "\nConnection success" << std::endl;
+        std::cout << "\nSuccessfully Connected to Broker." << std::endl;
     }
 
     void connection_lost(const std::string& cause) override {
-        std::cout << "\nConnection lost" << std::endl;
+        std::cout << "\nConnection to Broker is Lost." << std::endl;
         if (!cause.empty())
             std::cout << "\tcause: " << cause << std::endl;
     }
