@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , horn_debounce_timer(new QTimer(this))
+    , lights_debounce_timer(new QTimer(this))
 {
     ui->setupUi(this);
 
@@ -33,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent)
     // Setup horn timer
     horn_debounce_timer->setSingleShot(true);
     connect(horn_debounce_timer, &QTimer::timeout, this, &MainWindow::enable_horn_activation);
+    connect(lights_debounce_timer, &QTimer::timeout, this, &MainWindow::enable_lights_activation);
+
 }
 
 MainWindow::~MainWindow()
@@ -132,6 +135,11 @@ void MainWindow::enable_horn_activation()
     horn_debounce = false;
 }
 
+void MainWindow::enable_lights_activation()
+{
+    lights_debounce = false;
+}
+
 void MainWindow::connect_pressed()
 {
     string SERVER_ADDRESS = (ui->broker_url_le->text()).toStdString();
@@ -225,6 +233,26 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             ui->horn_pb->setStyleSheet("QPushButton { background-color: rgb(0, 205, 255); }");
             horn_active = true;
             horn_debounce = true;
+        }
+    }
+    else if (event->key() == Qt::Key_L) 
+    {
+        if (!lights_debounce)
+        {
+            lights_debounce = true;
+            if (!lights_active)
+            {
+                lights_active = true;
+                publish_msg("lights_on");
+                ui->lights_pb->setStyleSheet("QPushButton { background-color: rgb(255, 255, 0); }");
+            }
+            else
+            {
+                lights_active = false;
+                publish_msg("lights_off");
+                ui->lights_pb->setStyleSheet("");
+            }
+            lights_debounce_timer->start(250); 
         }
     }
     else {

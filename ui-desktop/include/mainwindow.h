@@ -42,6 +42,9 @@ public:
     // Slots for horn button
     void enable_horn_activation();
 
+    // Slots for lights button
+    void enable_lights_activation();
+
     // Slot for Connect Button
     void connect_pressed();
 
@@ -61,8 +64,13 @@ private:
     callback cb;
     publish_action_listener publish_listener;
     string current_action = "none";
+    // Horn objects
     QTimer* horn_debounce_timer;  
     bool horn_active = false;     
     bool horn_debounce = false; 
+    // Lights objects
+    QTimer* lights_debounce_timer;  
+    bool lights_debounce = false; 
+    bool lights_active = false;
 };
 #endif // MAINWINDOW_H
