@@ -8,15 +8,38 @@ using std::string;
 
 class callback : public virtual mqtt::callback
 {
+private:
+
 public:
-    void connected(const std::string& cause) override {
-        std::cout << "\nConnection success" << std::endl;
+    // Constructor
+    callback()  
+    {
+
+    }
+    // Callback when the connection is successful
+    void connected(const std::string& cause) override 
+    {
+        std::cout << "Connection Success" << std::endl;
     }
 
-    void connection_lost(const std::string& cause) override {
-        std::cout << "\nConnection lost" << std::endl;
+    // Callback when the connection is lost
+    void connection_lost(const std::string& cause) override 
+    {
+        std::cout << "Connection Lost";
         if (!cause.empty())
-            std::cout << "\tcause: " << cause << std::endl;
+            std::cout << "\tCause: " << cause << std::endl;
+    }
+
+    // Callback when a message is delivered
+    void delivery_complete(mqtt::delivery_token_ptr token) override 
+    {
+    }
+
+    // Callback when a message arrives
+    void message_arrived(mqtt::const_message_ptr msg) override 
+    {
+        std::cout << "Message arrived: " << msg->to_string() << std::endl;
+        std::cout << "\tTopic: " << msg->get_topic() << std::endl;
     }
 };
 

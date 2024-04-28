@@ -7,6 +7,8 @@ const int LEFT_BACKWARD_PIN = 4;
 const int RIGHT_FORWARD_PIN = 14;
 const int RIGHT_BACKWARD_PIN = 12;
 const int HORN_PIN = 13;
+const int LIGHTS_PIN = 15;
+
 const int CONNECT_LED_PIN = 2;
 
 void go_forward();
@@ -37,9 +39,7 @@ void setup()
   // Set baud for serial monitor
   Serial.begin(9600);
   initialize_pins();
-  digitalWrite(HORN_PIN, HIGH);
-  delay(1000);
-  digitalWrite(HORN_PIN, LOW);
+
 
   // Connect to WIFI
   Serial.println("Connecting to WiFi..");
@@ -99,6 +99,7 @@ void initialize_pins()
   pinMode(RIGHT_FORWARD_PIN, OUTPUT);
   pinMode(RIGHT_BACKWARD_PIN, OUTPUT);
   pinMode(HORN_PIN, OUTPUT);
+  pinMode(LIGHTS_PIN, OUTPUT);
   digitalWrite(CONNECT_LED_PIN, LOW);
 }
 
@@ -114,6 +115,9 @@ void subscriber_callback(char* topic, byte* payload, unsigned int length)
   {
     message[i] = (char)payload[i];
   }
+
+  // Null-terminate the array
+  message[length] = '\0';
 
   // Movement commands
   if (length == 1)
@@ -140,9 +144,22 @@ void subscriber_callback(char* topic, byte* payload, unsigned int length)
         break;
     }
   }
-  Serial.print("yes");
-  // Null-terminate the array
-  message[length] = '\0';
+  else if (strncmp(message, "horn_on", length) == 0) 
+  {
+    digitalWrite(HORN_PIN, HIGH);
+  } 
+  else if (strncmp(message, "horn_off", length) == 0) 
+  {
+    digitalWrite(HORN_PIN, LOW);
+  } 
+  else if (strncmp(message, "lights_on", length) == 0) 
+  {
+    digitalWrite(LIGHTS_PIN, HIGH);
+  } 
+  else if (strncmp(message, "lights_off", length) == 0) 
+  {
+    digitalWrite(LIGHTS_PIN, LOW);
+  }  
   
   // Print the message as a C string
   Serial.println(message);
