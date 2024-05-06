@@ -3,7 +3,8 @@
 
 const std::string DEFAULT_SERVER_URL = "tcp://91.121.93.94:1883";
 const std::string CLIENT_ID = "mqtt_robot_client";
-const std::string TOPIC = "robot/control";
+const std::string CONTROL_TOPIC = "robot/control";
+const std::string CAMERA_TOPIC = "robot/cam";
 const int QOS = 0;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -11,10 +12,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , horn_debounce_timer(new QTimer(this))
     , lights_debounce_timer(new QTimer(this))
-
+    , cb(frame_ready, jpeg_string)
 {
     ui->setupUi(this);
-
     // Set up MQTT options
     robot_client_ptr = nullptr;
     conn_opts.set_keep_alive_interval(5);
@@ -35,11 +35,16 @@ MainWindow::MainWindow(QWidget *parent)
     // Setup horn timer
     horn_debounce_timer->setSingleShot(true);
     connect(horn_debounce_timer, &QTimer::timeout, this, &MainWindow::enable_horn_activation);
+
+    // Setup lights timer
+    lights_debounce_timer->setSingleShot(true);
     connect(lights_debounce_timer, &QTimer::timeout, this, &MainWindow::enable_lights_activation);
+
+
 
     // Setup and run livestream thread
     livestream_thread = new QThread(this);
-    livestream_worker = new LivestreamWorker();
+    livestream_worker = new LivestreamWorker(frame_ready, jpeg_string);
     livestream_worker->moveToThread(livestream_thread);
     connect(livestream_thread, &QThread::started, livestream_worker, &LivestreamWorker::run_livestream);
     connect(livestream_worker, &LivestreamWorker::finished, livestream_thread, &QThread::quit);
@@ -182,13 +187,17 @@ void MainWindow::connect_pressed()
         robot_client_ptr = new mqtt::async_client(SERVER_URL, CLIENT_ID);
         // Set Callbacks
         robot_client_ptr->set_callback(cb);
+
         // Connect to the MQTT broker
         mqtt::token_ptr conntok = robot_client_ptr->connect(conn_opts);
         conntok->wait(); // Wait for the connection to complete
+
+        // Subscribe to the topic "robot/cam"
+        mqtt::token_ptr subtok = robot_client_ptr->subscribe(CAMERA_TOPIC, QOS);
+        subtok->wait(); // Wait for the subscription to complete
+        
         ui->status_fr->setStyleSheet("QFrame { background-color: rgb(0, 255, 0); }");
         connected = true;
-
-
     }
     catch (const mqtt::exception& exc) {
         delete robot_client_ptr;
@@ -342,7 +351,7 @@ void MainWindow::publish_msg(const string msg)
     {
         try 
         {
-            mqtt::message_ptr pubmsg = mqtt::make_message(TOPIC, msg);
+            mqtt::message_ptr pubmsg = mqtt::make_message(CONTROL_TOPIC, msg);
             pubmsg->set_qos(QOS);
             robot_client_ptr->publish(pubmsg, nullptr, publish_listener);
         }
