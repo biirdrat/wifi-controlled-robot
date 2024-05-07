@@ -21,7 +21,8 @@ namespace Ui
 }
 QT_END_NAMESPACE
 
-class LivestreamWorker : public QObject {
+class LivestreamWorker : public QObject 
+{
     Q_OBJECT
 
 public:
