@@ -2,9 +2,9 @@
 #include "ui_mainwindow.h"
 
 const std::string DEFAULT_SERVER_URL = "tcp://91.121.93.94:1883";
-const std::string CLIENT_ID = "mqtt_robot_client";
+const std::string CLIENT_ID = "control_client";
 const std::string CONTROL_TOPIC = "robot/control";
-const std::string CAMERA_TOPIC = "robot/cam";
+const std::string CAMERA_TOPIC = "robot/camera";
 const int QOS = 0;
 
 MainWindow::MainWindow(QWidget *parent)

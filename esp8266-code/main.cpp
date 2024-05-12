@@ -58,7 +58,7 @@ void setup()
       digitalWrite(CONNECT_LED_PIN, LOW);
       delay(250);
   }
-  // Connedt to MQTT Broker
+  // Connect to MQTT Broker
   esp_client.setServer(mqtt_broker, mqtt_port);
   esp_client.setCallback(subscriber_callback);
 
@@ -76,7 +76,6 @@ void setup()
       digitalWrite(CONNECT_LED_PIN, !digitalRead(CONNECT_LED_PIN));
       delay(500);
     }
-  
   }
   digitalWrite(CONNECT_LED_PIN, LOW);
   esp_client.subscribe(topic);
