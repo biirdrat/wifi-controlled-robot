@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-const std::string DEFAULT_SERVER_URL = "tcp://91.121.93.94:1883";
+// const std::string DEFAULT_SERVER_URL = "tcp://91.121.93.94:1883";
+const std::string DEFAULT_SERVER_URL = "tcp://192.168.1.252:1883";
 const std::string CLIENT_ID = "control_client";
 const std::string CONTROL_TOPIC = "robot/control";
 const std::string CAMERA_TOPIC = "robot/camera";
@@ -50,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(livestream_worker, &LivestreamWorker::finished, livestream_thread, &QThread::quit);
     connect(livestream_worker, &LivestreamWorker::finished, livestream_worker, &LivestreamWorker::deleteLater);
     connect(livestream_thread, &QThread::finished, livestream_thread, &QThread::deleteLater);
+    connect(livestream_worker, &LivestreamWorker::image_ready, this, &MainWindow::display_image);
     livestream_thread->start();
 
 }
@@ -168,7 +170,7 @@ void MainWindow::connect_pressed()
     string SERVER_URL = "";
     if(SERVER_ADDRESS.empty() || PORT.empty())
     {
-        ui->broker_url_le->setText("tcp://91.121.93.94");
+        ui->broker_url_le->setText("tcp://192.168.1.252");
         ui->port_number_le->setText("1883");
         SERVER_URL = DEFAULT_SERVER_URL;
     }
@@ -362,6 +364,13 @@ void MainWindow::publish_msg(const string msg)
             std::cerr << "Message failed to send: " << exc.what() << std::endl;
         }
     }
+}
+
+void MainWindow::display_image(const QImage &image)
+{
+    QPixmap pixmap = QPixmap::fromImage(image);
+    ui->camera_lb->setPixmap(pixmap.scaled(ui->camera_lb->size(), 
+                        Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 

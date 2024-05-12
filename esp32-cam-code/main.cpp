@@ -25,7 +25,8 @@ const char* ssid = "ATTiyMY3i2";
 const char* password = "cc%e=nm8t8gj";
 
 // MQTT Broker variables
-const char* mqtt_broker = "91.121.93.94";
+// const char* mqtt_broker = "91.121.93.94";
+const char* mqtt_broker = "192.168.1.252";
 const int mqtt_port = 1883;
 const char* control_topic = "robot/control";
 const char* camera_topic = "robot/camera";
@@ -36,7 +37,7 @@ const uint8_t LED_PIN = 4;
 const int MAX_IMG_SIZE = 1024 * 23; // 23552 bytes
 
 // Frame variables
-float fps = 0.5;
+float fps = 30;
 unsigned long current_time = 0;
 unsigned long last_frame_time = 0;
 uint16_t interval_time = 0;
@@ -116,9 +117,7 @@ void initialize_camera()
   //                      for larger pre-allocated frame buffer.
   if(config.pixel_format == PIXFORMAT_JPEG)
   {
-    config.jpeg_quality = 10;
-    config.fb_count = 2;
-    config.grab_mode = CAMERA_GRAB_LATEST;
+
     if(psramFound())
     {
       config.jpeg_quality = 10;
@@ -181,6 +180,41 @@ void initialize_camera()
     setupLedFlash(LED_GPIO_NUM);
   #endif
 }
+
+// void initialize_camera(){
+//   camera_config_t config;
+//   config.ledc_channel = LEDC_CHANNEL_0;
+//   config.ledc_timer = LEDC_TIMER_0;
+//   config.pin_d0 = Y2_GPIO_NUM;
+//   config.pin_d1 = Y3_GPIO_NUM;
+//   config.pin_d2 = Y4_GPIO_NUM;
+//   config.pin_d3 = Y5_GPIO_NUM;
+//   config.pin_d4 = Y6_GPIO_NUM;
+//   config.pin_d5 = Y7_GPIO_NUM;
+//   config.pin_d6 = Y8_GPIO_NUM;
+//   config.pin_d7 = Y9_GPIO_NUM;
+//   config.pin_xclk = XCLK_GPIO_NUM;
+//   config.pin_pclk = PCLK_GPIO_NUM;
+//   config.pin_vsync = VSYNC_GPIO_NUM;
+//   config.pin_href = HREF_GPIO_NUM;
+//   config.pin_sscb_sda = SIOD_GPIO_NUM;
+//   config.pin_sscb_scl = SIOC_GPIO_NUM;
+//   config.pin_pwdn = PWDN_GPIO_NUM;
+//   config.pin_reset = RESET_GPIO_NUM;
+//   config.xclk_freq_hz = 20000000;
+//   config.pixel_format = PIXFORMAT_JPEG;
+//   config.frame_size = FRAMESIZE_VGA; // 640x480
+//   config.jpeg_quality = 10;
+//   config.fb_count = 2;
+
+//   // camera init
+//   esp_err_t err = esp_camera_init(&config);
+//   if (err != ESP_OK) {
+//     Serial.printf("Camera init failed with error 0x%x", err);
+//     ESP.restart();
+//     return;
+//   }
+// }
 
 void grab_image()
 {

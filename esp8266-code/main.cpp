@@ -26,7 +26,8 @@ const char* password = "cc%e=nm8t8gj";
 // const char* password = "11411LDLN";
 
 // MQTT Broker settings
-const char* mqtt_broker = "91.121.93.94";
+// const char* mqtt_broker = "91.121.93.94";
+const char* mqtt_broker = "192.168.1.252";
 const int mqtt_port = 1883;
 
 const char* topic = "robot/control";

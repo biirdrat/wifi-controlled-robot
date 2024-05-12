@@ -12,7 +12,7 @@
 #include <QCoreApplication>
 #include <mqtt.h>
 
-const int fps = 20;
+const int fps = 60;
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -54,7 +54,14 @@ public slots:
             {   
                 fps_debounce = true;
                 fps_debounce_timer->start();
-                cout << "Running\n";
+                
+                // Convert jpeg_string to QImage
+                QByteArray byteArray(jpeg_string.c_str(), jpeg_string.size());
+                QImage image;
+                image.loadFromData(byteArray, "JPEG");
+                
+                // Emit image display signal
+                emit image_ready(image);
             }
             QCoreApplication::processEvents();
         }
@@ -68,6 +75,7 @@ public slots:
     }
 signals:
     void finished();
+    void image_ready(const QImage &image);
 };
 
 class MainWindow : public QMainWindow
@@ -136,5 +144,8 @@ private:
     LivestreamWorker *livestream_worker;
     atomic<bool> frame_ready = false;
     string jpeg_string;
+
+private slots:
+    void display_image(const QImage &image);
 };
 #endif // MAINWINDOW_H

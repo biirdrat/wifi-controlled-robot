@@ -46,7 +46,7 @@ public:
             jpeg_string = msg->to_string();
             frame_ready = true;
         }
-        std::cout << "Length of JPEG string: " << jpeg_string.size() << std::endl;
+        // std::cout << "Length of JPEG string: " << jpeg_string.size() << std::endl;
 
         // std::cout << "Message arrived: " << msg->to_string() << std::endl;
         // std::cout << "\tTopic: " << msg->get_topic() << std::endl;
