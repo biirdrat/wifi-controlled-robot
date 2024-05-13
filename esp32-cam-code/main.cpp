@@ -23,6 +23,10 @@
 // Wifi variables
 const char* ssid = "ATTiyMY3i2";
 const char* password = "cc%e=nm8t8gj";
+// const char* ssid = "ATTpgi2ziE";
+// const char* password = "Dung1965";
+// const char* ssid = "11411 Langdon Ln";
+// const char* password = "11411LDLN";
 
 // MQTT Broker variables
 // const char* mqtt_broker = "91.121.93.94";
@@ -175,10 +179,6 @@ void initialize_camera()
     s->set_vflip(s, 1);
   #endif
 
-  // Setup LED FLash if LED pin is defined in camera_pins.h
-  #if defined(LED_GPIO_NUM)
-    setupLedFlash(LED_GPIO_NUM);
-  #endif
 }
 
 // void initialize_camera(){
@@ -266,11 +266,11 @@ void subscriber_callback(char* topic, byte* payload, unsigned int length)
   // Null-terminate the array
   message[length] = '\0';
 
-  if (strncmp(message, "lights_on", length) == 0) 
+  if (strncmp(message, "lights_on", 9) == 0) 
   {
     digitalWrite(LED_PIN, HIGH);
   } 
-  else if (strncmp(message, "lights_off", length) == 0) 
+  else if (strncmp(message, "lights_off", 10) == 0) 
   {
     digitalWrite(LED_PIN, LOW);
   }  
