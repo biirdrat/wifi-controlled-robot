@@ -5,16 +5,19 @@
 using std::cout;
 using std::endl;
 using std::string;
+using std::atomic;
 
 class callback : public virtual mqtt::callback
 {
 private:
-
+    atomic<bool> &frame_ready;
+    string &jpeg_string;
 public:
     // Constructor
-    callback()  
+    callback(atomic<bool> &_frame_ready, string &_jpeg_string) 
+    : frame_ready(_frame_ready)
+    , jpeg_string(_jpeg_string)
     {
-
     }
     // Callback when the connection is successful
     void connected(const std::string& cause) override 
@@ -37,9 +40,16 @@ public:
 
     // Callback when a message arrives
     void message_arrived(mqtt::const_message_ptr msg) override 
-    {
-        std::cout << "Message arrived: " << msg->to_string() << std::endl;
-        std::cout << "\tTopic: " << msg->get_topic() << std::endl;
+    {   
+        if (!frame_ready)
+        {
+            jpeg_string = msg->to_string();
+            frame_ready = true;
+        }
+        // std::cout << "Length of JPEG string: " << jpeg_string.size() << std::endl;
+
+        // std::cout << "Message arrived: " << msg->to_string() << std::endl;
+        // std::cout << "\tTopic: " << msg->get_topic() << std::endl;
     }
 };
 

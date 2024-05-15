@@ -26,7 +26,8 @@ const char* password = "cc%e=nm8t8gj";
 // const char* password = "11411LDLN";
 
 // MQTT Broker settings
-const char* mqtt_broker = "91.121.93.94";
+// const char* mqtt_broker = "91.121.93.94";
+const char* mqtt_broker = "192.168.1.252";
 const int mqtt_port = 1883;
 
 const char* topic = "robot/control";
@@ -58,7 +59,7 @@ void setup()
       digitalWrite(CONNECT_LED_PIN, LOW);
       delay(250);
   }
-  // Connedt to MQTT Broker
+  // Connect to MQTT Broker
   esp_client.setServer(mqtt_broker, mqtt_port);
   esp_client.setCallback(subscriber_callback);
 
@@ -76,7 +77,6 @@ void setup()
       digitalWrite(CONNECT_LED_PIN, !digitalRead(CONNECT_LED_PIN));
       delay(500);
     }
-  
   }
   digitalWrite(CONNECT_LED_PIN, LOW);
   esp_client.subscribe(topic);

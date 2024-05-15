@@ -9,7 +9,10 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QDebug>
+#include <QCoreApplication>
 #include <mqtt.h>
+
+const int fps = 60;
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -18,29 +21,61 @@ namespace Ui
 }
 QT_END_NAMESPACE
 
-class LivestreamWorker : public QObject {
+class LivestreamWorker : public QObject 
+{
     Q_OBJECT
 
 public:
-    LivestreamWorker() {}
+    LivestreamWorker(atomic<bool> &_frame_ready, string &_jpeg_string) 
+    : frame_ready(_frame_ready)
+    , jpeg_string(_jpeg_string)
+    , fps_debounce_timer(new QTimer(this))
+    {
+        int fps_delay = static_cast<int>((1.0f / fps) * 1000);        
+        fps_debounce_timer->setInterval(fps_delay);
+        connect(fps_debounce_timer, &QTimer::timeout, this, &LivestreamWorker::reset_fps_debounce);
+    }
     ~LivestreamWorker() {}
     bool livestream_active;
+    bool fps_debounce = false;
+    QTimer *fps_debounce_timer; 
 
+private:
+    atomic<bool> &frame_ready;
+    string &jpeg_string;
+    
 public slots:
     void run_livestream() 
     {
         livestream_active = true;
         while (livestream_active)
         {
-            QThread::sleep(1);  // It's a good practice to avoid a tight loop that might consume too much CPU
-
-            cout << "Running";
+            if (!fps_debounce && frame_ready)
+            {   
+                fps_debounce = true;
+                fps_debounce_timer->start();
+                
+                // Convert jpeg_string to QImage
+                QByteArray byteArray(jpeg_string.c_str(), jpeg_string.size());
+                QImage image;
+                image.loadFromData(byteArray, "JPEG");
+                
+                // Emit image display signal
+                emit image_ready(image);
+            }
+            QCoreApplication::processEvents();
         }
         emit finished();
     }
-
+    void reset_fps_debounce() 
+    {
+        fps_debounce = false;
+        frame_ready = false;
+        fps_debounce_timer->stop(); 
+    }
 signals:
     void finished();
+    void image_ready(const QImage &image);
 };
 
 class MainWindow : public QMainWindow
@@ -107,5 +142,10 @@ private:
     // Livestream objects
     QThread *livestream_thread;
     LivestreamWorker *livestream_worker;
+    atomic<bool> frame_ready = false;
+    string jpeg_string;
+
+private slots:
+    void display_image(const QImage &image);
 };
 #endif // MAINWINDOW_H
